@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+        <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+        <!-- 保持你新建项目的 ProjectGuid，无需修改 -->
+        <ProjectGuid>{AA32A582-6731-47A9-B338-DA698EE00039}</ProjectGuid>
+        <OutputType>WinExe</OutputType>
+        <RootNamespace>GammaX_Switcher</RootNamespace>
+        <AssemblyName>GammaX_Switcher</AssemblyName>
+        <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+        <FileAlignment>512</FileAlignment>
+        <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+        <Deterministic>true</Deterministic>
+        <!-- 补充原项目核心配置：应用图标、清单、目标区域 -->
+        <ApplicationIcon>TrayIcon.ico</ApplicationIcon>
+        <TargetZone>LocalIntranet</TargetZone>
+        <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+        <Optimize>false</Optimize>
+        <OutputPath>bin\Debug\</OutputPath>
+        <DefineConstants>DEBUG;TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <!-- 补充空的文档文件配置，避免编译警告 -->
+        <DocumentationFile></DocumentationFile>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+        <!-- 改为 x86 适配原项目，兼容32位系统 -->
+        <PlatformTarget>x86</PlatformTarget>
+        <DebugType>pdbonly</DebugType>
+        <Optimize>true</Optimize>
+        <!-- 输出路径对应 x86，和原项目一致 -->
+        <OutputPath>bin\Release\x86\</OutputPath>
+        <DefineConstants>TRACE</DefineConstants>
+        <ErrorReport>prompt</ErrorReport>
+        <WarningLevel>4</WarningLevel>
+        <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+        <Prefer32Bit>true</Prefer32Bit>
+    </PropertyGroup>
+    <ItemGroup>
+        <!-- 补充原项目核心依赖：System.Management（显示器管理）、System.Configuration（配置）、System.Web.Extensions -->
+        <Reference Include="System"/>
+        <Reference Include="System.Configuration"/>
+        <Reference Include="System.Core"/>
+        <Reference Include="System.Data"/>
+        <Reference Include="System.Data.DataSetExtensions"/>
+        <Reference Include="System.Deployment"/>
+        <Reference Include="System.Drawing"/>
+        <Reference Include="System.Management"/>
+        <Reference Include="System.Net.Http"/>
+        <Reference Include="System.Web.Extensions"/>
+        <Reference Include="System.Windows.Forms"/>
+        <Reference Include="System.Xml"/>
+        <Reference Include="System.Xml.Linq"/>
+        <Reference Include="Microsoft.CSharp"/>
+    </ItemGroup>
+    <ItemGroup>
+        <!-- 替换默认 Form1 为原项目的 Window 窗体，添加所有核心代码文件 -->
+        <Compile Include="Display.cs" />
+        <Compile Include="ExternalMonitor.cs" />
+        <Compile Include="Gamma.cs" />
+        <Compile Include="HotkeyConfig.cs" />
+        <Compile Include="IniFile.cs" />
+        <Compile Include="InternalMonitor.cs" />
+        <Compile Include="KeyModifiers.cs" />
+        <Compile Include="LanguageManager.cs" />
+        <Compile Include="Win.cs" />
+        <Compile Include="Window.cs">
+            <SubType>Form</SubType>
+        </Compile>
+        <Compile Include="Window.Designer.cs">
+            <DependentUpon>Window.cs</DependentUpon>
+        </Compile>
+        <Compile Include="Program.cs"/>
+        <Compile Include="Properties\AssemblyInfo.cs"/>
+        
+        <!-- 多语言资源文件（中文） -->
+        <Compile Include="Properties\Resources.zh-CN.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.zh-CN.resx</DependentUpon>
+        </Compile>
+        <!-- 默认资源文件 -->
+        <Compile Include="Properties\Resources.Designer.cs">
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Resources.resx</DependentUpon>
+            <DesignTime>True</DesignTime>
+        </Compile>
+        <!-- 设置文件 -->
+        <Compile Include="Properties\Settings.Designer.cs">
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Settings.settings</DependentUpon>
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <!-- 嵌入式资源：多语言 + 窗体资源 -->
+        <EmbeddedResource Include="Properties\Resources.zh-CN.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.zh-CN.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Window.resx">
+            <DependentUpon>Window.cs</DependentUpon>
+        </EmbeddedResource>
+        <EmbeddedResource Include="Properties\Resources.resx">
+            <Generator>ResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+            <SubType>Designer</SubType>
+        </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <!-- 补充原项目的配置/资源文件 -->
+        <None Include="App.config"/>
+        <None Include="Properties\app.manifest" />
+        <None Include="Properties\Settings.settings">
+            <Generator>SettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+        <None Include="Resources\TestMonitor.jpg" />
+    </ItemGroup>
+    <ItemGroup>
+        <!-- 应用图标文件 -->
+        <Content Include="TrayIcon.ico" />
+    </ItemGroup>
+    <ItemGroup>
+        <!-- .NET 4.7.2 引导程序包，确保用户安装时检测依赖 -->
+        <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+            <Visible>False</Visible>
+            <ProductName>Microsoft .NET Framework 4.7.2 (x86 and x64)</ProductName>
+            <Install>true</Install>
+        </BootstrapperPackage>
+        <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+            <Visible>False</Visible>
+            <ProductName>.NET Framework 3.5 SP1</ProductName>
+            <Install>false</Install>
+        </BootstrapperPackage>
+    </ItemGroup>
+    <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
+</Project>
