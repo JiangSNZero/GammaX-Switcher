@@ -141,7 +141,7 @@ namespace GammaX_Switcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 极致对比度.
+        ///   Looks up a localized string similar to +++.
         /// </summary>
         internal static string checkBoxExContrast {
             get {

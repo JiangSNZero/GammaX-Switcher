@@ -91,6 +91,12 @@
 - 适配系统：Windows (x86/x64)，依赖 .NET Framework 4.7.2
 - 许可证：CC0 1.0 Public Domain（公有领域）
 
+### 原项目引用
+
+- 原项目名称：Gamma Manager
+- 原项目地址：【https://github.com/KrasnovM/Gamma-Manager】
+- 原项目许可证：CC0 1.0 Public Domain（公有领域）
+
 ## English Version
 
 ### GammaX Switcher
@@ -122,7 +128,8 @@ No installation required, just run the .exe file directly. The program automatic
      Contrast: 0.10 — 3.00/100.00 (default 1.00) | 0.10 is the safety lower limit, 3.00 is the practical upper limit, 100.00 is the entertainment upper limit
      ```
 
-     
+
+​     
 
 2. **Calibration Assistance**
 
@@ -181,3 +188,9 @@ No installation required, just run the .exe file directly. The program automatic
    - Modified based on the original Gamma Manager, adding Chinese/English bilingual and global hotkey functions
    - Compatible systems: Windows (x86/x64), dependent on .NET Framework 4.7.2
    - License: CC0 1.0 Public Domain
+   
+   ### Original Project Reference
+   
+   - Original Project Name: Gamma Manager
+   - Original Project URL: [https://github.com/KrasnovM/Gamma-Manager]
+   - Original Project License: CC0 1.0 Public Domain
