@@ -12,6 +12,7 @@
 
 #### 一、基础功能（原生功能）
 
+<img width="585" height="239" alt="image" src="https://github.com/user-attachments/assets/8f85f6a1-2c55-4c46-a9a5-25a80be51ae7" />
 
 
 1. **伽马值调节**
@@ -102,6 +103,8 @@ No installation required, just run the .exe file directly. The program automatic
 
 #### 1. Basic Features (Native)
 
+<img width="588" height="243" alt="image" src="https://github.com/user-attachments/assets/488c565a-4bba-4351-bcf9-c9e4b17d94a8" />
+
 1. **Gamma Adjustment**
 
    - Color buttons support independent adjustment of RGB channel gamma values, or synchronous adjustment of all channels.
@@ -112,17 +115,6 @@ No installation required, just run the .exe file directly. The program automatic
 
    - Value range:
 
-     plaintext
-
-     
-
-     
-
-     
-
-     
-
-     
 
      ```plaintext
      Gamma: 0.30 — 4.40 (default 1.00) | The CreateGammaRamp function does not support values outside this range
