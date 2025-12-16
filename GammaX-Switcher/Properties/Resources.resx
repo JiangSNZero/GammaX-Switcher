@@ -196,7 +196,7 @@
 
     <!-- 托盘/菜单 -->
     <data name="notifyIcon.Text" xml:space="preserve">
-  <value>Gamma Manager</value>
+  <value>GammaX Switcher</value>
 </data>
     <data name="txtSettings" xml:space="preserve">
   <value>Settings</value>
@@ -207,6 +207,6 @@
 
     <!-- 窗体标题 -->
     <data name="Window" xml:space="preserve">
-  <value>Gamma Manager</value>
+  <value>GammaX Switcher</value>
 </data>
 </root>

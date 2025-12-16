@@ -209,12 +209,6 @@ namespace GammaX_Switcher
             int tmp = Screen.PrimaryScreen.Bounds.Height;
             int taskBarHeight = tmp - Screen.PrimaryScreen.WorkingArea.Height;
 
-            //dpi
-            /*int PSH = SystemParameters.PrimaryScreenHeight;
-            int PSBH = Screen.PrimaryScreen.Bounds.Height;
-            double ratio = PSH / PSBH;
-            int TaskBarHeight = PSBH - Screen.PrimaryScreen.WorkingArea.Height;
-            TaskBarHeight *= ratio;*/
             // ========== 新增：读取并应用语言配置 ==========
 
             // 1. 从INI读取Language字段（默认English）
@@ -249,7 +243,7 @@ namespace GammaX_Switcher
                 (CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
             _customCulture.NumberFormat.NumberDecimalSeparator = ",";
 
-            _iniFile = new IniFile("GammaManager.ini");
+            _iniFile = new IniFile("GammaXSwitcher.ini");
 
             buttonAllColors.Font = new Font(buttonAllColors.Font.Name, buttonAllColors.Font.Size, FontStyle.Bold);
 
@@ -335,57 +329,55 @@ namespace GammaX_Switcher
         {
             comboBoxPresets.Text = string.Empty;
 
-            if (!_disableChangeFunc)
+            if (_disableChangeFunc) return;
+            textBoxContrast.Text = (trackBarContrast.Value / 100f).ToString("0.00");
+
+            if (_allColors)
             {
-                textBoxContrast.Text = (trackBarContrast.Value / 100f).ToString("0.00");
-
-                if (_allColors)
-                {
-                    _currDisplay.rContrast = trackBarContrast.Value / 100f;
-                    _currDisplay.gContrast = trackBarContrast.Value / 100f;
-                    _currDisplay.bContrast = trackBarContrast.Value / 100f;
-                    Gamma.SetGammaRamp(_currDisplay.displayLink,
-                        Gamma.CreateGammaRamp(_currDisplay.rGamma, _currDisplay.gGamma, _currDisplay.bGamma,
-                            _currDisplay.rContrast,
-                            _currDisplay.gContrast, _currDisplay.bContrast, _currDisplay.rBright, _currDisplay.gBright,
-                            _currDisplay.bBright));
-                    goto EndColors;
-                }
-
-                if (_redColor)
-                {
-                    _currDisplay.rContrast = trackBarContrast.Value / 100f;
-                    Gamma.SetGammaRamp(_currDisplay.displayLink,
-                        Gamma.CreateGammaRamp(_currDisplay.rGamma, _currDisplay.gGamma, _currDisplay.bGamma,
-                            _currDisplay.rContrast,
-                            _currDisplay.gContrast, _currDisplay.bContrast, _currDisplay.rBright, _currDisplay.gBright,
-                            _currDisplay.bBright));
-                    goto EndColors;
-                }
-
-                if (_greenColor)
-                {
-                    _currDisplay.gContrast = trackBarContrast.Value / 100f;
-                    Gamma.SetGammaRamp(_currDisplay.displayLink,
-                        Gamma.CreateGammaRamp(_currDisplay.rGamma, _currDisplay.gGamma, _currDisplay.bGamma,
-                            _currDisplay.rContrast,
-                            _currDisplay.gContrast, _currDisplay.bContrast, _currDisplay.rBright, _currDisplay.gBright,
-                            _currDisplay.bBright));
-                    goto EndColors;
-                }
-
-                if (_blueColor)
-                {
-                    _currDisplay.bContrast = trackBarContrast.Value / 100f;
-                    Gamma.SetGammaRamp(_currDisplay.displayLink,
-                        Gamma.CreateGammaRamp(_currDisplay.rGamma, _currDisplay.gGamma, _currDisplay.bGamma,
-                            _currDisplay.rContrast,
-                            _currDisplay.gContrast, _currDisplay.bContrast, _currDisplay.rBright, _currDisplay.gBright,
-                            _currDisplay.bBright));
-                }
-
-                EndColors: ;
+                _currDisplay.rContrast = trackBarContrast.Value / 100f;
+                _currDisplay.gContrast = trackBarContrast.Value / 100f;
+                _currDisplay.bContrast = trackBarContrast.Value / 100f;
+                Gamma.SetGammaRamp(_currDisplay.displayLink,
+                    Gamma.CreateGammaRamp(_currDisplay.rGamma, _currDisplay.gGamma, _currDisplay.bGamma,
+                        _currDisplay.rContrast,
+                        _currDisplay.gContrast, _currDisplay.bContrast, _currDisplay.rBright, _currDisplay.gBright,
+                        _currDisplay.bBright));
+                goto EndColors;
             }
+
+            if (_redColor)
+            {
+                _currDisplay.rContrast = trackBarContrast.Value / 100f;
+                Gamma.SetGammaRamp(_currDisplay.displayLink,
+                    Gamma.CreateGammaRamp(_currDisplay.rGamma, _currDisplay.gGamma, _currDisplay.bGamma,
+                        _currDisplay.rContrast,
+                        _currDisplay.gContrast, _currDisplay.bContrast, _currDisplay.rBright, _currDisplay.gBright,
+                        _currDisplay.bBright));
+                goto EndColors;
+            }
+
+            if (_greenColor)
+            {
+                _currDisplay.gContrast = trackBarContrast.Value / 100f;
+                Gamma.SetGammaRamp(_currDisplay.displayLink,
+                    Gamma.CreateGammaRamp(_currDisplay.rGamma, _currDisplay.gGamma, _currDisplay.bGamma,
+                        _currDisplay.rContrast,
+                        _currDisplay.gContrast, _currDisplay.bContrast, _currDisplay.rBright, _currDisplay.gBright,
+                        _currDisplay.bBright));
+                goto EndColors;
+            }
+
+            if (_blueColor)
+            {
+                _currDisplay.bContrast = trackBarContrast.Value / 100f;
+                Gamma.SetGammaRamp(_currDisplay.displayLink,
+                    Gamma.CreateGammaRamp(_currDisplay.rGamma, _currDisplay.gGamma, _currDisplay.bGamma,
+                        _currDisplay.rContrast,
+                        _currDisplay.gContrast, _currDisplay.bContrast, _currDisplay.rBright, _currDisplay.gBright,
+                        _currDisplay.bBright));
+            }
+
+            EndColors: ;
         }
 
         private void trackBarBrightness_ValueChanged(object sender, EventArgs e)
@@ -665,13 +657,13 @@ namespace GammaX_Switcher
 
             if (_currDisplay.isExternal)
             {
-                trackBarMonitorBrightness.Value = 100;
+                trackBarMonitorBrightness.Value = 50;
 
                 trackBarMonitorContrast.Value = 50;
             }
             else
             {
-                trackBarMonitorBrightness.Value = 100;
+                trackBarMonitorBrightness.Value = 50;
             }
 
 
@@ -938,9 +930,42 @@ namespace GammaX_Switcher
             // throw new System.NotImplementedException();
         }
 
+        // 检测快捷键是否可用
+        private bool IsHotkeyAvailable(KeyModifiers modifiers, Keys key)
+        {
+            uint mod = 0;
+            if ((modifiers & KeyModifiers.Ctrl) != 0) mod |= 0x0002;
+            if ((modifiers & KeyModifiers.Alt) != 0) mod |= 0x0001;
+            if ((modifiers & KeyModifiers.Shift) != 0) mod |= 0x0004;
+
+            // 临时注册，检测是否成功（成功则说明未被占用，再取消注册）
+            int tempId = new Random().Next(1000, 9999);
+            bool isAvailable = RegisterHotKey(this.Handle, tempId, (int)mod, (int)key);
+            if (isAvailable)
+                UnregisterHotKey(this.Handle, tempId);
+
+            return isAvailable;
+        }
+
         // 按键按下时捕获修饰符和按键
         private void TxtHotkey_KeyDown(object sender, KeyEventArgs e)
         {
+            // 判断是否按下退格键
+            if (e.KeyCode == Keys.Back)
+            {
+                // 清空快捷键
+                _currentHotkeyModifier = KeyModifiers.None;
+                _currentHotkeyKey = Keys.None;
+
+                // 清除显示
+                UpdateHotkeyDisplay();
+
+                // 阻止系统默认行为
+                e.SuppressKeyPress = true;
+                e.Handled = true;
+                return; // 直接返回，不执行后续的快捷键捕获逻辑
+            }
+
             // 捕获修饰符（Ctrl/Alt/Shift）
             _currentHotkeyModifier = KeyModifiers.None;
             if (e.Control) _currentHotkeyModifier |= KeyModifiers.Ctrl;
@@ -951,6 +976,14 @@ namespace GammaX_Switcher
             if (e.KeyCode != Keys.ControlKey && e.KeyCode != Keys.Menu && e.KeyCode != Keys.ShiftKey)
             {
                 _currentHotkeyKey = e.KeyCode;
+                if (!IsHotkeyAvailable(_currentHotkeyModifier, _currentHotkeyKey))
+                {
+                    MessageBox.Show(@"快捷键{_currentHotkeyKey}已被其他程序占用，无法设置！", @"提示",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // 清空无效的快捷键
+                    _currentHotkeyKey = Keys.None;
+                    _currentHotkeyModifier = KeyModifiers.None;
+                }
             }
 
             // 显示快捷键到文本框
@@ -1051,32 +1084,23 @@ namespace GammaX_Switcher
             base.WndProc(ref m); // 先执行系统默认的消息处理
 
             // 仅处理「全局热键触发」消息（WM_HOTKEY = 0x0312）
-            if (m.Msg == 0x0312)
-            {
-                try
-                {
-                    int hotkeyId = m.WParam.ToInt32();
-                    var kv = _hotkeyIdMap.FirstOrDefault(k => k.Value == hotkeyId);
-                    string targetPreset = kv.Key;
-                    if (string.IsNullOrEmpty(targetPreset)) return;
+            if (m.Msg != 0x0312) return;
+            int hotkeyId = m.WParam.ToInt32();
+            var kv = _hotkeyIdMap.FirstOrDefault(k => k.Value == hotkeyId);
+            string targetPreset = kv.Key;
+            if (string.IsNullOrEmpty(targetPreset)) return;
 
-                    string purePresetName = GetPurePresetName(targetPreset);
-                    SafeInvoke(() => // 强制UI线程选中
-                    {
-                        int presetIndex = comboBoxPresets.Items.IndexOf(purePresetName);
-                        if (presetIndex != -1)
-                        {
-                            comboBoxPresets.SelectedIndex = presetIndex;
-                            comboBoxPresets.Text = comboBoxPresets.Items[presetIndex].ToString(); // 强制设置文本
-                            comboBoxPresets.Refresh(); // 强制UI刷新
-                        }
-                    });
-                }
-                catch (Exception ex)
+            string purePresetName = GetPurePresetName(targetPreset);
+            SafeInvoke(() => // 强制UI线程选中
+            {
+                int presetIndex = comboBoxPresets.Items.IndexOf(purePresetName);
+                if (presetIndex != -1)
                 {
-                    Debug.WriteLine($"WndProc异常：{ex}");
+                    comboBoxPresets.SelectedIndex = presetIndex;
+                    comboBoxPresets.Text = comboBoxPresets.Items[presetIndex].ToString(); // 强制设置文本
+                    comboBoxPresets.Refresh(); // 强制UI刷新
                 }
-            }
+            });
         }
 
         // 新增工具方法：统一提取纯预设名（放在Window类中）
@@ -1084,7 +1108,6 @@ namespace GammaX_Switcher
         {
             if (string.IsNullOrEmpty(fullPresetName))
             {
-                Debug.WriteLine("GetPurePresetName: 完整预设名为空");
                 return "";
             }
 
@@ -1098,7 +1121,7 @@ namespace GammaX_Switcher
                 // MessageBox.Show($"GetPurePresetName: 完整名[{fullPresetName}] → 纯预设名[{pureName}]", "错误",
                 //     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                // MessageBox.Show($@"GetPurePresetName调用源头：{new StackTrace()}", @"错误",
+                // MessageBox.Show(@"GetPurePresetName调用源头：{new StackTrace()}", @"错误",
                 //     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return pureName;
@@ -1107,7 +1130,7 @@ namespace GammaX_Switcher
             {
                 // 无分隔符时直接返回原始名称（去空格）
                 string pureName = fullPresetName.Trim();
-                // MessageBox.Show($@"GetPurePresetName: 完整名[{fullPresetName}] 无分隔符，返回[{pureName}]", @"错误",
+                // MessageBox.Show(@"GetPurePresetName: 完整名[{fullPresetName}] 无分隔符，返回[{pureName}]", @"错误",
                 //     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return pureName;
@@ -1129,14 +1152,12 @@ namespace GammaX_Switcher
         private void comboBoxPresets_TextChanged(object sender, EventArgs e)
         {
             // 如果是快捷键触发的选中，禁止修改Text
-            if (_isHotkeyTriggered && !string.IsNullOrEmpty(comboBoxPresets.Text))
+            if (!_isHotkeyTriggered || string.IsNullOrEmpty(comboBoxPresets.Text)) return;
+            // 锁定文本为选中项的文本
+            var selectedText = comboBoxPresets.Items[comboBoxPresets.SelectedIndex].ToString();
+            if (comboBoxPresets.Text != selectedText)
             {
-                // 锁定文本为选中项的文本
-                string selectedText = comboBoxPresets.Items[comboBoxPresets.SelectedIndex].ToString();
-                if (comboBoxPresets.Text != selectedText)
-                {
-                    comboBoxPresets.Text = selectedText;
-                }
+                comboBoxPresets.Text = selectedText;
             }
         }
     }

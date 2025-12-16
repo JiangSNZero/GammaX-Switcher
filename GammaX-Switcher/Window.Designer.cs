@@ -400,7 +400,7 @@
             // notifyIcon
             // 
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
-            this.notifyIcon.Text = "Gamma Manager";
+            this.notifyIcon.Text = "GammaX Switcher";
             this.notifyIcon.Visible = true;
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
@@ -509,7 +509,7 @@
             this.MaximizeBox = false;
             this.Name = "Window";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Gamma Manager";
+            this.Text = "GammaX Switcher";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Window_Load);
             this.Resize += new System.EventHandler(this.Window_Resize);

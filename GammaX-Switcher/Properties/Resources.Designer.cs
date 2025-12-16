@@ -231,7 +231,7 @@ namespace GammaX_Switcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gamma Manager.
+        ///   Looks up a localized string similar to GammaX Switcher.
         /// </summary>
         internal static string notifyIcon_Text {
             get {
@@ -268,7 +268,7 @@ namespace GammaX_Switcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Gamma Manager.
+        ///   Looks up a localized string similar to GammaX Switcher.
         /// </summary>
         internal static string Window {
             get {
